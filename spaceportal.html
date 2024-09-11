@@ -1,0 +1,68 @@
+<!doctype html><title>Portal</title>
+<link rel="icon" href="https://fav.farm/🔥" />
+<script src="../../build/fireworks-bundle.js"></script>
+<script src="../vendor/tquery-bundle.js"></script>
+
+<body>
+	<div>
+		<h3 style="position: absolute; z-index: 1000; top: 300px; left: 500px; right: 500px; text-align: center; color: white;">
+			(John 10:9) I am the door: by me if any man enter in, he shall be saved, and shall go in and out, and find pasture.
+		</h3>
+	</div>
+	<script>
+	var world	= tQuery.createWorld().boilerplate().start();
+	var object	= tQuery.createTorus(2.8, 2.2, 320, 320).addTo(world).rotateZ(1*Math.PI/8);
+
+	world.tRenderer().setClearColorHex( 0x000000, world.tRenderer().getClearAlpha() );
+
+	var url		= "../assets/images/tremulous/psaw/blue_particle.jpg";
+	var texture	= THREE.ImageUtils.loadTexture( url );
+
+	var emitter	= Fireworks.createEmitter({nParticles : 80})
+		.effectsStackBuilder()
+			.spawnerSteadyRate(25)
+			.position(Fireworks.createShapeSphere(0, 0, 0, 0.6))
+			.lifeTime(0.5)
+			.createEffect('scale', {
+					birthScale	: 6/12,
+					mulScale	: 0.88
+				}).onBirth(function(particle, deltaTime){
+					var object3d	= particle.get('threejsObject3D').object3d;
+					var birthScale	= this.opts.birthScale;
+					object3d.scale.set(birthScale, birthScale, birthScale);
+				}).onUpdate(function(particle, deltaTime){
+					var object3d	= particle.get('threejsObject3D').object3d;
+					object3d.scale.multiplyScalar( this.opts.mulScale )
+				}).back()
+			.renderToThreejsObject3D({
+				container	: world,
+				create		: function(){
+					var object3d	= new THREE.Sprite({
+						color			: 0xAA4488,
+						useScreenCoordinates	: false,
+						map			: texture,
+						blending		: THREE.AdditiveBlending,
+						transparent		: true
+					});
+					object3d.rotation	= Math.random() * Math.PI*2;
+					return object3d;
+				}	
+			})
+			.back()
+		.start();
+
+	world.loop().hook(function(delta, now){
+		emitter.update(delta).render();
+	})
+</script></body>
+
+
+
+
+
+
+
+
+
+
+
