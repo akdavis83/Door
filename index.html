@@ -1,7 +1,7 @@
 <!doctype html><title>Portal</title>
 <link rel="icon" href="https://fav.farm/🔥" />
-<script src="../../build/fireworks-bundle.js"></script>
-<script src="../vendor/tquery-bundle.js"></script>
+<script src="fireworks-bundle.js"></script>
+<script src="tquery-bundle.js"></script>
 
 <body>
 	<div>
@@ -15,7 +15,7 @@
 
 	world.tRenderer().setClearColorHex( 0x000000, world.tRenderer().getClearAlpha() );
 
-	var url		= "../assets/images/tremulous/psaw/blue_particle.jpg";
+	var url		= "./assets/images/tremulous/psaw/blue_particle.jpg";
 	var texture	= THREE.ImageUtils.loadTexture( url );
 
 	var emitter	= Fireworks.createEmitter({nParticles : 80})
